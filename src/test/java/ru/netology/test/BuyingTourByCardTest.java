@@ -18,7 +18,7 @@ import static com.codeborne.selenide.Selenide.open;
 import io.qameta.allure.selenide.AllureSelenide;
 import ru.netology.page.StartPage;
 
-public class NegativeScenariosTest {
+public class BuyingTourByCardTest {
 
     private PaymentByCardPage cardPayment = new PaymentByCardPage();
     private final static String cardApproved = "4444444444444441";
