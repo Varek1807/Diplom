@@ -1,5 +1,6 @@
 package ru.netology.data;
 
+import lombok.SneakyThrows;
 import lombok.val;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
@@ -12,7 +13,10 @@ public class SQLHelper {
     private static final String user = "app";
     private static final String password = "pass";
 
-    public static String getScalarFromTable(String column, String tableName) throws SQLException {
+    @SneakyThrows
+    public static String getScalarFromTable(String column, String tableName)
+            //throws SQLException
+            {
         QueryRunner runner = new QueryRunner();
         try (val conn = DriverManager.getConnection(url, user, password)
         ) {
@@ -20,13 +24,20 @@ public class SQLHelper {
             val scalar = runner.query(conn, info, new ScalarHandler<String>());
             return scalar;
         }
+      //  catch (SQLException sqlException) {
+        //    sqlException.printStackTrace();
+   // }
     }
 
-    public static String getStatusFromPaymentEntity() throws SQLException {
+    public static String getStatusFromPaymentEntity()
+            //throws SQLException
+    {
         return getScalarFromTable("status", "payment_entity");
     }
 
-    public static String getStatusFromCreditRequestEntity() throws SQLException {
+    public static String getStatusFromCreditRequestEntity()
+            //throws SQLException
+    {
         return getScalarFromTable("status", "credit_request_entity");
     }
 

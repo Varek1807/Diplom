@@ -7,8 +7,6 @@ import ru.netology.data.SQLHelper;
 import ru.netology.page.PaymentByCardPage;
 import com.codeborne.selenide.logevents.SelenideLogger;
 
-import java.sql.SQLException;
-
 import lombok.val;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,8 +18,8 @@ import ru.netology.page.StartPage;
 
 public class BuyingTourByCardTest {
 
-    private PaymentByCardPage cardPayment = new PaymentByCardPage();
-    private final static String cardApproved = "4444444444444441";
+    //private PaymentByCardPage cardPayment = new PaymentByCardPage();
+    // private final static String cardApproved = "4444444444444441";
     private final static String approved = "APPROVED";
     private final static String declined = "DECLINED";
 
@@ -32,7 +30,7 @@ public class BuyingTourByCardTest {
     }
 
     @AfterEach
-    void afterEach() throws SQLException {
+    void afterEach() {
         SQLHelper.cleanDB();
     }
 
@@ -49,336 +47,365 @@ public class BuyingTourByCardTest {
 
 
     @Test
-    void insertInFieldMonth00() throws SQLException {
+    void insertInFieldMonth00() {
         val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonth00(),
+       // val paymentPage = new PaymentByCardPage();
+       // startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth00(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorMonth();
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorMonth("Неверный формат");
         assertNull(SQLHelper.getStatusFromPaymentEntity());
 
     }
 
     @Test
-    void insertInFieldMonth13() throws SQLException {
+    void insertInFieldMonth13() {
         val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonth13(),
+       // val paymentPage = new PaymentByCardPage();
+       // startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth13(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorMonth();
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorMonth("Неверно указан срок действия карты");
         assertNull(SQLHelper.getStatusFromPaymentEntity());
     }
 
     @Test
-    void insertInFieldMonthLetters() throws SQLException {
+    void insertInFieldMonthLetters() {
         val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getLetters(),
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getLetters(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorMonth();
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorMonth("Неверный формат");
         assertNull(SQLHelper.getStatusFromPaymentEntity());
     }
 
     @Test
-    void insertInFieldMonthSymbol() throws SQLException {
+    void insertInFieldMonthSymbol() {
         val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getTwoSymbol(),
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getTwoSymbol(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorMonth();
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorMonth("Неверный формат");
         assertNull(SQLHelper.getStatusFromPaymentEntity());
     }
 
     @Test
-    void insertInFieldMonthWhitespace() throws SQLException {
+    void insertInFieldMonthWhitespace() {
         val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonthWhitespace(),
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonthWhitespace(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorMonth();
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorMonth("Неверный формат");
         assertNull(SQLHelper.getStatusFromPaymentEntity());
     }
 
     @Test
-    void fieldMonthEmpty() throws SQLException {
+    void fieldMonthEmpty() {
         val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getEmptyValue(),
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getEmptyValue(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorMonth();
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorMonth("Поле обязательно для заполнения");
         assertNull(SQLHelper.getStatusFromPaymentEntity());
     }
 
     @Test
-    void insertInFieldCardNumber15Digit() throws SQLException {
+    void insertInFieldCardNumber15Digit() {
         val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getCardNumber15Quantity(), DataHelper.getMonth(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorCardNumber();
+       paymentPage.entryData(cardNumber);
+        paymentPage.errorCardNumber("Неверный формат");
         assertNull(SQLHelper.getStatusFromPaymentEntity());
     }
 
     @Test
-    void insertInFieldCardNumber17Digit() throws SQLException {
+    void insertInFieldCardNumber17Digit() {
         val startPage = new StartPage();
-        startPage.payByCard();
+//        startPage.payByCard();
+//        val paymentPage = new PaymentByCardPage();
+        val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getCardNumber17Quantity(), DataHelper.getMonth(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        cardPayment.buyOperationSuccessful();
-        assertEquals(approved, SQLHelper.getStatusFromPaymentEntity());
-    }
-
-    @Test
-    void insertInFieldCardNumberChars() throws SQLException {
-        val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(DataHelper.getCardNumberChars(), DataHelper.getMonth(),
-                DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorCardNumber();
-        assertNull(SQLHelper.getStatusFromPaymentEntity());
-    }
-
-    @Test
-    void insertInFieldCardNumberWhitespace() throws SQLException {
-        val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(DataHelper.getCardNumberWhitespace(), DataHelper.getMonth(),
-                DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorCardNumber();
-        assertNull(SQLHelper.getStatusFromPaymentEntity());
-    }
-
-    @Test
-    void fieldCardNumberEmpty() throws SQLException {
-        val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(DataHelper.getEmptyValue(), DataHelper.getMonth(),
-                DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorCardNumber();
-        assertNull(SQLHelper.getStatusFromPaymentEntity());
-    }
-
-    @Test
-    void insertInFieldYearMoreThanCurrent6Years() throws SQLException {
-        val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonth(),
-                DataHelper.getYear(6), DataHelper.getUserEng(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorYear();
-        assertNull(SQLHelper.getStatusFromPaymentEntity());
-    }
-
-    @Test
-    void fieldYearEmpty() throws SQLException {
-        val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonth(), DataHelper.getEmptyValue(), DataHelper.getUserEng(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorYear();
-        assertNull(SQLHelper.getStatusFromPaymentEntity());
-    }
-
-    @Test
-    void insertInFieldYearTwoSymbol() throws SQLException {
-        val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonth(),
-                DataHelper.getTwoSymbol(), DataHelper.getUserEng(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorYear();
-        assertNull(SQLHelper.getStatusFromPaymentEntity());
-    }
-
-    @Test
-    void insertInFieldYearTwoChars() throws SQLException {
-        val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonth(),
-                DataHelper.getLetters(), DataHelper.getUserEng(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorYear();
-        assertNull(SQLHelper.getStatusFromPaymentEntity());
-    }
-
-    @Test
-    void insertInFieldYearThreeDigit() throws SQLException {
-        val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonth(),
-                DataHelper.getYearThreeDigit(), DataHelper.getUserEng(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
+        paymentPage.entryData(cardNumber);
         paymentPage.buyOperationSuccessful();
         assertEquals(approved, SQLHelper.getStatusFromPaymentEntity());
     }
 
     @Test
-    void insertInFieldCVCThreeSymbol() throws SQLException {
+    void insertInFieldCardNumberChars() {
         val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonth(),
-                DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getCVCSymbol());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorCVC();
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getCardNumberChars(), DataHelper.getMonth(),
+                DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorCardNumber("Неверный формат");
         assertNull(SQLHelper.getStatusFromPaymentEntity());
     }
 
     @Test
-    void insertInFieldCVCThreeChars() throws SQLException {
+    void insertInFieldCardNumberWhitespace() {
         val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonth(),
-                DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getCVCChars());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorCVC();
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getCardNumberWhitespace(), DataHelper.getMonth(),
+                DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorCardNumber("Неверный формат");
         assertNull(SQLHelper.getStatusFromPaymentEntity());
     }
 
     @Test
-    void insertInFieldCVCTwoDigit() throws SQLException {
+    void fieldCardNumberEmpty() {
         val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonth(),
-                DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getCVCTwoDigit());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorCVC();
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getEmptyValue(), DataHelper.getMonth(),
+                DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorCardNumber("Поле обязательно для заполнения");
         assertNull(SQLHelper.getStatusFromPaymentEntity());
     }
 
     @Test
-    void insertInFieldCVCOneDigit() throws SQLException {
+    void insertInFieldYearMoreThanCurrent6Years() {
         val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonth(),
-                DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getCVCOneDigit());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorCVC();
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
+                DataHelper.getYear(6), DataHelper.getUserEng(), DataHelper.getCvc());
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorYear("Неверно указан срок действия карты");
         assertNull(SQLHelper.getStatusFromPaymentEntity());
     }
 
     @Test
-    void insertInFieldCVCThreeSpaces() throws SQLException {
+    void fieldYearEmpty() {
         val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonth(),
-                DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getCVCWhitespace());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorCVC();
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(), DataHelper.getEmptyValue(), DataHelper.getUserEng(), DataHelper.getCvc());
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorYear("Поле обязательно для заполнения");
         assertNull(SQLHelper.getStatusFromPaymentEntity());
     }
 
     @Test
-    void insertInFieldCVCFourDigit() throws SQLException {
+    void insertInFieldYearTwoSymbol() {
         val startPage = new StartPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonth(),
-                DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getCVCFourDigit());
-        cardPayment.entryData(cardNumber);
-        cardPayment.buyOperationSuccessful();
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
+                DataHelper.getTwoSymbol(), DataHelper.getUserEng(), DataHelper.getCvc());
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorYear("Неверный формат");
+        assertNull(SQLHelper.getStatusFromPaymentEntity());
+    }
+
+    @Test
+    void insertInFieldYearTwoChars() {
+        val startPage = new StartPage();
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
+                DataHelper.getLetters(), DataHelper.getUserEng(), DataHelper.getCvc());
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorYear("Неверный формат");
+        assertNull(SQLHelper.getStatusFromPaymentEntity());
+    }
+
+    @Test
+    void insertInFieldYearThreeDigit() {
+        val startPage = new StartPage();
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
+                DataHelper.getYearThreeDigit(), DataHelper.getUserEng(), DataHelper.getCvc());
+        paymentPage.entryData(cardNumber);
+        paymentPage.buyOperationSuccessful();
         assertEquals(approved, SQLHelper.getStatusFromPaymentEntity());
     }
 
     @Test
-    void fieldCVCEmpty() throws SQLException {
+    void insertInFieldCVCThreeSymbol() {
         val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonth(),
+//
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
+                DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getCVCSymbol());
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorCVC("Неверный формат");
+        assertNull(SQLHelper.getStatusFromPaymentEntity());
+    }
+
+    @Test
+    void insertInFieldCVCThreeChars() {
+        val startPage = new StartPage();
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
+                DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getCVCChars());
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorCVC("Неверный формат");
+        assertNull(SQLHelper.getStatusFromPaymentEntity());
+    }
+
+    @Test
+    void insertInFieldCVCTwoDigit() {
+        val startPage = new StartPage();
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
+                DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getCVCTwoDigit());
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorCVC("Неверный формат");
+        assertNull(SQLHelper.getStatusFromPaymentEntity());
+    }
+
+    @Test
+    void insertInFieldCVCOneDigit() {
+        val startPage = new StartPage();
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
+                DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getCVCOneDigit());
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorCVC("Неверный формат");
+        assertNull(SQLHelper.getStatusFromPaymentEntity());
+    }
+
+    @Test
+    void insertInFieldCVCThreeSpaces() {
+        val startPage = new StartPage();
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
+                DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getCVCWhitespace());
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorCVC("Неверный формат");
+        assertNull(SQLHelper.getStatusFromPaymentEntity());
+    }
+
+    @Test
+    void insertInFieldCVCFourDigit() {
+        val startPage = new StartPage();
+//        startPage.payByCard();
+//        val paymentPage = new PaymentByCardPage();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
+                DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getCVCFourDigit());
+        paymentPage.entryData(cardNumber);
+        paymentPage.buyOperationSuccessful();
+        assertEquals(approved, SQLHelper.getStatusFromPaymentEntity());
+    }
+
+    @Test
+    void fieldCVCEmpty() {
+        val startPage = new StartPage();
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getEmptyValue());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorCVC();
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorCVC("Поле обязательно для заполнения");
         assertNull(SQLHelper.getStatusFromPaymentEntity());
     }
 
     @Test
-    void fieldUserEmpty() throws SQLException {
+    void fieldUserEmpty() {
         val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonth(),
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(3), DataHelper.getEmptyValue(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorUser();
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorUser("Поле обязательно для заполнения");
         assertNull(SQLHelper.getStatusFromPaymentEntity());
     }
 
     @Test
-    void insertInFieldUserNumbers() throws SQLException {
+    void insertInFieldUserNumbers() {
         val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonth(),
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(3), DataHelper.getCVCFourDigit(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorUser();
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorUser("Неверный формат");
         assertNull(SQLHelper.getStatusFromPaymentEntity());
     }
 
     @Test
-    void insertInFieldUserRu() throws SQLException {
+    void insertInFieldUserRu() {
         val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonth(),
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(3), DataHelper.getUserRu(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorUser();
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorUser("Неверный формат");
         assertNull(SQLHelper.getStatusFromPaymentEntity());
     }
 
     @Test
-    void insertInFieldUserOneChar() throws SQLException {
+    void insertInFieldUserOneChar() {
         val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonth(),
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(3), DataHelper.getUserOneChar(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorUser();
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorUser("Неверный формат");
         assertNull(SQLHelper.getStatusFromPaymentEntity());
     }
 
     @Test
-    void insertInFieldUserSymbols() throws SQLException {
+    void insertInFieldUserSymbols() {
         val startPage = new StartPage();
-        val paymentPage = new PaymentByCardPage();
-        startPage.payByCard();
-        val cardNumber = DataHelper.getCardInfo(cardApproved, DataHelper.getMonth(),
+//        val paymentPage = new PaymentByCardPage();
+//        startPage.payByCard();
+        val paymentPage = startPage.payByCard();
+        val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(3), DataHelper.getUserSymbols(), DataHelper.getCvc());
-        cardPayment.entryData(cardNumber);
-        paymentPage.errorUser();
+        paymentPage.entryData(cardNumber);
+        paymentPage.errorUser("Неверный формат");
         assertNull(SQLHelper.getStatusFromPaymentEntity());
     }
 }

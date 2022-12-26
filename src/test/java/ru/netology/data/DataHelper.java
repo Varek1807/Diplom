@@ -22,7 +22,13 @@ public class DataHelper {
         public String user;
         public String cvc;
     }
+    public static String getApprovedCardNumber() {
+        return "4444444444444441";
+    }
 
+    public static String getDeclinedCardNumber() {
+        return "4444444444444442";
+    }
     public static CardInfo getCardInfo(String cardNumber, String month, String year, String user, String cvc) {
         return new CardInfo(cardNumber, month, year, user, cvc);
     }
