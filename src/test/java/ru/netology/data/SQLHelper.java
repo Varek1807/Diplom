@@ -14,9 +14,7 @@ public class SQLHelper {
     private static final String password = "pass";
 
     @SneakyThrows
-    public static String getScalarFromTable(String column, String tableName)
-            //throws SQLException
-            {
+    public static String getScalarFromTable(String column, String tableName) {
         QueryRunner runner = new QueryRunner();
         try (val conn = DriverManager.getConnection(url, user, password)
         ) {
@@ -24,19 +22,14 @@ public class SQLHelper {
             val scalar = runner.query(conn, info, new ScalarHandler<String>());
             return scalar;
         }
-      //  catch (SQLException sqlException) {
-        //    sqlException.printStackTrace();
-   // }
     }
 
-    public static String getStatusFromPaymentEntity()
-            //throws SQLException
-    {
+    public static String getStatusFromPaymentEntity() {
         return getScalarFromTable("status", "payment_entity");
     }
 
     public static String getStatusFromCreditRequestEntity()
-            //throws SQLException
+    //throws SQLException
     {
         return getScalarFromTable("status", "credit_request_entity");
     }

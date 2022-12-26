@@ -4,7 +4,6 @@ import org.junit.jupiter.api.*;
 import ru.netology.data.DataHelper;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.SQLHelper;
-import ru.netology.page.PaymentByCardPage;
 import com.codeborne.selenide.logevents.SelenideLogger;
 
 import lombok.val;
@@ -17,9 +16,6 @@ import io.qameta.allure.selenide.AllureSelenide;
 import ru.netology.page.StartPage;
 
 public class BuyingTourByCardTest {
-
-    //private PaymentByCardPage cardPayment = new PaymentByCardPage();
-    // private final static String cardApproved = "4444444444444441";
     private final static String approved = "APPROVED";
     private final static String declined = "DECLINED";
 
@@ -49,8 +45,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldMonth00() {
         val startPage = new StartPage();
-       // val paymentPage = new PaymentByCardPage();
-       // startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth00(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
@@ -63,8 +57,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldMonth13() {
         val startPage = new StartPage();
-       // val paymentPage = new PaymentByCardPage();
-       // startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth13(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
@@ -76,8 +68,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldMonthLetters() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getLetters(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
@@ -89,8 +79,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldMonthSymbol() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getTwoSymbol(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
@@ -102,8 +90,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldMonthWhitespace() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonthWhitespace(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
@@ -115,8 +101,6 @@ public class BuyingTourByCardTest {
     @Test
     void fieldMonthEmpty() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getEmptyValue(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
@@ -128,12 +112,10 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldCardNumber15Digit() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getCardNumber15Quantity(), DataHelper.getMonth(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
-       paymentPage.entryData(cardNumber);
+        paymentPage.entryData(cardNumber);
         paymentPage.errorCardNumber("Неверный формат");
         assertNull(SQLHelper.getStatusFromPaymentEntity());
     }
@@ -141,8 +123,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldCardNumber17Digit() {
         val startPage = new StartPage();
-//        startPage.payByCard();
-//        val paymentPage = new PaymentByCardPage();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getCardNumber17Quantity(), DataHelper.getMonth(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
@@ -154,8 +134,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldCardNumberChars() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getCardNumberChars(), DataHelper.getMonth(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
@@ -167,8 +145,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldCardNumberWhitespace() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getCardNumberWhitespace(), DataHelper.getMonth(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
@@ -180,8 +156,6 @@ public class BuyingTourByCardTest {
     @Test
     void fieldCardNumberEmpty() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getEmptyValue(), DataHelper.getMonth(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
@@ -193,8 +167,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldYearMoreThanCurrent6Years() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(6), DataHelper.getUserEng(), DataHelper.getCvc());
@@ -206,8 +178,6 @@ public class BuyingTourByCardTest {
     @Test
     void fieldYearEmpty() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(), DataHelper.getEmptyValue(), DataHelper.getUserEng(), DataHelper.getCvc());
         paymentPage.entryData(cardNumber);
@@ -218,8 +188,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldYearTwoSymbol() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getTwoSymbol(), DataHelper.getUserEng(), DataHelper.getCvc());
@@ -231,8 +199,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldYearTwoChars() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getLetters(), DataHelper.getUserEng(), DataHelper.getCvc());
@@ -244,8 +210,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldYearThreeDigit() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYearThreeDigit(), DataHelper.getUserEng(), DataHelper.getCvc());
@@ -257,7 +221,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldCVCThreeSymbol() {
         val startPage = new StartPage();
-//
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getCVCSymbol());
@@ -269,8 +232,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldCVCThreeChars() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getCVCChars());
@@ -282,8 +243,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldCVCTwoDigit() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getCVCTwoDigit());
@@ -295,8 +254,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldCVCOneDigit() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getCVCOneDigit());
@@ -308,8 +265,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldCVCThreeSpaces() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getCVCWhitespace());
@@ -321,8 +276,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldCVCFourDigit() {
         val startPage = new StartPage();
-//        startPage.payByCard();
-//        val paymentPage = new PaymentByCardPage();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getCVCFourDigit());
@@ -334,8 +287,6 @@ public class BuyingTourByCardTest {
     @Test
     void fieldCVCEmpty() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getEmptyValue());
@@ -347,8 +298,6 @@ public class BuyingTourByCardTest {
     @Test
     void fieldUserEmpty() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(3), DataHelper.getEmptyValue(), DataHelper.getCvc());
@@ -360,8 +309,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldUserNumbers() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(3), DataHelper.getCVCFourDigit(), DataHelper.getCvc());
@@ -373,8 +320,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldUserRu() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(3), DataHelper.getUserRu(), DataHelper.getCvc());
@@ -386,8 +331,6 @@ public class BuyingTourByCardTest {
     @Test
     void insertInFieldUserOneChar() {
         val startPage = new StartPage();
-//        val paymentPage = new PaymentByCardPage();
-//        startPage.payByCard();
         val paymentPage = startPage.payByCard();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(3), DataHelper.getUserOneChar(), DataHelper.getCvc());

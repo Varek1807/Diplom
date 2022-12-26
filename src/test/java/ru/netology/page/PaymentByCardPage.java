@@ -1,33 +1,13 @@
 package ru.netology.page;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
 import ru.netology.data.DataHelper;
 
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
 
 public class PaymentByCardPage extends ElementsPage {
-//    private SelenideElement cardNumber = $("[placeholder=\"0000 0000 0000 0000\"]");
-//    private SelenideElement month = $("[placeholder=\"08\"]");
-//    private SelenideElement year = $("[placeholder=\"22\"]");
-//    private SelenideElement user = $(byText("Владелец")).parent().$(".input__control");
-//    private SelenideElement cvc = $("[placeholder=\"999\"]");
-//
-//    private SelenideElement buttonContinue = $x(" //*[text()='Продолжить']");
-//    private SelenideElement errorMessageCard = $(byText("Номер карты")).parent().$(".input__sub");
-//    private SelenideElement errorMessageMonth = $(byText("Месяц")).parent().$(".input__sub");
-//    private SelenideElement errorMessageYear = $(byText("Год")).parent().$(".input__sub");
-//    private SelenideElement errorMessageUser = $(byText("Владелец")).parent().$(".input__sub");
-//    private SelenideElement errorMessageCVC = $(byText("CVC/CVV")).parent().$(".input__sub");
-//    private SelenideElement approvedMessage = $$(".notification__title").find(exactText("Успешно"));
-//    //private SelenideElement getMessage = $$(".notification__title").cl;
-//    private SelenideElement declinedMessage = $$(".notification__title").find(exactText("Ошибка"));
-//    private SelenideElement closeDeclinedMessage = $$(".notification__closer").last();
-//    private SelenideElement closeApprovedMessage = $$(".notification__closer").first();
 
     public void entryData(DataHelper.CardInfo info) {
         cardNumber.setValue(info.getCardNumber());

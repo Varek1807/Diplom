@@ -4,10 +4,7 @@ import org.junit.jupiter.api.*;
 import ru.netology.data.DataHelper;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.SQLHelper;
-import ru.netology.page.PaymentByCardPage;
 import com.codeborne.selenide.logevents.SelenideLogger;
-
-import java.sql.SQLException;
 
 import lombok.val;
 
@@ -19,9 +16,6 @@ import ru.netology.page.StartPage;
 
 
 public class FunctionTests {
-    // private PaymentByCardPage cardPayment = new PaymentByCardPage();
-   // private final static String cardApproved = "4444444444444441";
-    //private final static String cardDeclined = "4444444444444442";
     private final static String approved = "APPROVED";
     private final static String declined = "DECLINED";
 
@@ -53,8 +47,6 @@ public class FunctionTests {
     void payApprovedCard() {
         val startPage = new StartPage();
         val paymentPage = startPage.payByCard();
-       // startPage.payByCard();
-        //val cardPayment = new PaymentByCardPage();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(2), DataHelper.getUserEng(), DataHelper.getCvc());
         paymentPage.entryData(cardNumber);
@@ -66,9 +58,7 @@ public class FunctionTests {
     @Test
     void payDeclinedCard() {
         val startPage = new StartPage();
-        //startPage.payByCard();
         val paymentPage = startPage.payByCard();
-       // val cardPayment = new PaymentByCardPage();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getDeclinedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(1), DataHelper.getUserEng(), DataHelper.getCvc());
         paymentPage.entryData(cardNumber);
@@ -79,8 +69,6 @@ public class FunctionTests {
     @Test
     void payApprovedOnCredit() {
         val startPage = new StartPage();
-        //startPage.payOnCredit();
-      //  val cardPayment = new PaymentByCardPage();
         val paymentPage = startPage.payOnCredit();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getApprovedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(3), DataHelper.getUserEng(), DataHelper.getCvc());
@@ -94,8 +82,6 @@ public class FunctionTests {
     @Test
     void payDeclinedOnCredit() {
         val startPage = new StartPage();
-       // startPage.payOnCredit();
-       // val cardPayment = new PaymentByCardPage();
         val paymentPage = startPage.payOnCredit();
         val cardNumber = DataHelper.getCardInfo(DataHelper.getDeclinedCardNumber(), DataHelper.getMonth(),
                 DataHelper.getYear(4), DataHelper.getUserEng(), DataHelper.getCvc());
